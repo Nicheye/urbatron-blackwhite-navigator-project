@@ -1,0 +1,27 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	Событие
+</div>
+<div class="supercontainer" style="max-width: 920px;background-color: #fafafa;padding: 10px;border-radius: 3px; margin-bottom: 40px;">
+	<div class="new_title">{{post.title}}</div>
+	<div class="new-wrapper">
+	<div class="common_new_detail_left">
+		<img src="{{post.opt_image.url}}" class="new_post_image" alt="">
+	</div>
+	<div class="common_new_detail_right">
+		<div class="common-new-link">Тип : {{post.type}}</div>
+		<div class="common-new-link">Название : {{post.title}}</div>
+		<div class="common-new-link">нужно выполнить до : {{post.dead_line_date}}</div>
+	</div>
+
+</div>
+
+	<div class="text">
+		{{post.description}}
+	</div>
+</div>
+
+
+{%endblock%}

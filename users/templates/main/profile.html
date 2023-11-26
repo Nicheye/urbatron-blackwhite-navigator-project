@@ -1,0 +1,202 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	Личный кабинет
+</div>
+<div class="container profile_container">
+	{%if request.user == user %}
+	
+	<br>
+	<br>
+	
+	<div class="profile-group-btn">
+		<button class="profile_btn selected">Общее</button>
+		<a href="{%url 'citizen_polls'%}"><button class="profile_btn">голосование</button></a>
+		<a href="{%url 'awards'%}"><button class="profile_btn">Награды</button></a>
+		{%if role == 'Municipal'%}
+		<a href="{%url 'create_common_post'%}"><button class="profile_btn">Публикация</button></a>
+		<a href="{%url 'check_reports' %}"><button class="profile_btn">Обращения</button></a>
+		<a href="{%url 'events' %}"><button class="profile_btn">Cобытия</button></a> 
+		{%elif role == 'citizen' %}
+		<a href="{%url 'citizen_reports' %}"><button class="profile_btn">Обращения</button></a>
+		{%endif%}
+	</div>
+	<br>
+	<div class="main-profile">
+		<div class="left-profile">
+			<div class="avatar">
+				<img src="{{user.profile.avatar.url}}" class="profile_image" alt="">
+				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="
+				position: relative;
+				top: -169px;
+				left: 125px;
+			">
+					<i class="fa-regular fa-image" style="color: #d6e5ff;"></i>
+				  </button>
+			</div>
+			<div class="change-password_btn">Смена пароля</div>
+			<div class="logout_btn"><a href="{%url 'logout' %}">Выйти из профиля</a></div>
+		</div>
+		<div class="right-profile">
+			<form  class="profile_form">
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label" >Имя</label>
+					<br>
+					<input type="text" class="profile_field_form" disabled placeholder="{{user.first_name}}" >
+				</div>
+
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Фамилия</label>
+					<br>
+					<input type="text" class="profile_field_form" placeholder="{{user.second_name}}" disabled>
+				</div>
+
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Отчество</label>
+					<br>
+					<input type="text" class="profile_field_form" placeholder="{{user.father_name}}" disabled >
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	<div class="bottom_profile">
+		<form action="" method="POST">
+			{%csrf_token%}
+			<div class="bottom_profile_input_group">
+				
+				<div class="mb-3">
+					
+					<label for="exampleInputEmail1" class="form-label">Дата рождения
+				
+						<input type="tel" id="date" value="{{user.bday}}" disabled name="date"  class="profile_bottom_input" style="width: 204px;margin-top: 10px;">
+	
+					
+				</div>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Пол</label>
+					<br>
+					<select name="gender" id="" class="profile_bottom_input _select" >
+						
+							{%if user.profile.gender == 'Female' %}
+							<option class="profile_bottom_input _option"  selected>Женский</option>
+							<option class="profile_bottom_input _option" value="Male">Мужской</option>
+							{%elif user.profile.gender == 'Male' %}
+							<option class="profile_bottom_input _option"  selected>Мужской</option>
+							<option class="profile_bottom_input _option" value="Female">Женский</option>
+							{%else%}
+							<option class="profile_bottom_input _option" >Мужской</option>
+							<option class="profile_bottom_input _option" value="Female">Женский</option>
+							{%endif%}
+					
+						
+					</select>
+	
+					
+				</div>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Город</label>
+					<br>
+					<select name="city" id="" class="profile_bottom_input _select" disabled>
+						<option class="profile_bottom_input _option" value="1">Moscow</option>
+						
+					</select>
+	
+					
+				</div>
+				
+			</div>
+			<div class="bottom_profile_input_group">
+			
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Род деятельности</label>
+					<br>
+					<select name="bis" id="" class="profile_bottom_input _select" style="width: 300px;" >
+						
+						{%if user.profile.bis == 'Worker' %}
+						<option class="profile_bottom_input _option" selected>Рабочий</option>
+						<option class="profile_bottom_input _option" value="Student">Студент</option>
+						<option class="profile_bottom_input _option" value="Server">Служащий</option>
+						<option class="profile_bottom_input _option" value="Retired">Пенисионер</option>
+						
+						{%elif user.profile.bis == 'Student' %}
+							
+							<option class="profile_bottom_input _option" selected>Студент</option>
+							<option class="profile_bottom_input _option" value="Worker">Рабочий</option>
+						<option class="profile_bottom_input _option" value="Server">Служащий</option>
+						<option class="profile_bottom_input _option" value="Retired">Пенисионер</option>
+						{%elif user.profile.bis == 'Server' %}
+						<option class="profile_bottom_input _option" selected>Служащий</option>
+						<option class="profile_bottom_input _option" value="Student">Студент</option>
+						<option class="profile_bottom_input _option" value="Worker">Рабочий</option>
+						
+						<option class="profile_bottom_input _option" value="Retired">Пенисионер</option>
+						
+						{%elif user.profile.bis == 'Retired' %}
+						<option class="profile_bottom_input _option" selected>Пенсионер</option>
+						<option class="profile_bottom_input _option" value="Student">Студент</option>
+						<option class="profile_bottom_input _option" value="Worker">Рабочий</option>
+						<option class="profile_bottom_input _option" value="Server">Служащий</option>
+						{%endif%}
+
+						
+						
+						
+					</select>				
+				</div>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Телефон</label>
+					<br>
+					<input type="tel" name="phone" class="profile_field_form" placeholder="{{user.phone_number}} " >
+				</div>
+	
+				</div>
+				<div class="bottom_profile_input_group">
+				
+					
+					<div class="mb-3">
+						<label for="exampleInputEmail1" class="form-label">Электропочта</label>
+						<br>
+						<input type="email" name="email" class="profile_field_form" placeholder="{{user.email}}" style="width: 580px;" >
+					</div>
+		
+					</div>
+				
+			</div>
+			<button class="profile_change_btn" style="margin-top: 20px; margin-bottom: 20px;" type="submit">Сохранить</button>
+		</div>
+		</form>
+		
+
+		
+
+
+	
+		
+	{%endif%}
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class="modal-title fs-5" id="exampleModalLabel">Смена аватарки</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <form action="" method="POST" enctype="multipart/form-data">
+				{%csrf_token%}
+				<div class="mb-3">
+					<label for="formFile" class="form-label">выберите файл</label>
+					<input name="ava_file" class="form-control" type="file" id="formFile">
+				  </div>
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть </button>
+			  <button type="submit" class="btn btn-primary">Сохранить</button>
+			  </form>
+			</div>
+			
+		  </div>
+		</div>
+	  </div>
+	  
+</div>
+{%endblock%}

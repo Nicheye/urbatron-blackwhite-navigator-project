@@ -1,0 +1,90 @@
+{%extends 'main/base.html' %}
+{%block title%}login{%endblock%}
+
+{%block content%}
+<div class="reg-split">
+	<div class="left">
+		<div class="left-reg-title">
+			Войти <br> на <br> RUS.MUN.PORT
+		</div>
+	</div>
+	<div class="right ">
+		<form action="" method="post" class="reg_form sign">
+			<div class="login-form-title">Личный Кабинет</div>
+			{%csrf_token%}
+			
+			
+			<!-- <div class="form-floating mb-3">
+				<input type="tel" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+				<label for="floatingInput">Ваш номер телефона</label>
+			  </div>
+			
+			  <div class="form-floating">
+				<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+				<label for="floatingPassword">Пароль</label>
+			</div> -->
+			<div class="form-floating mb-3">
+				{{form.phone_number}}
+				<label for="floatingPassword">Ваш номер телефона</label>
+			  </div>
+		
+			  <div class="form-floating mb-3">
+				{{form.first_name}}
+				<label for="floatingPassword">Ваше Имя</label>
+				
+			  </div>
+
+			  <div class="form-floating mb-3">
+				{{form.second_name}}
+				<label for="floatingPassword">Ваша Фамилия</label>
+			  </div>
+
+
+			  <div class="form-floating mb-3">
+				{{form.father_name}}
+				<label for="floatingPassword">Ваше Отчество</label>
+			  </div>
+
+
+			  <div class="form-floating mb-3">
+				{{form.bday}}
+				
+			  </div>
+
+
+			  <div class="form-floating mb-3">
+				{{form.email}}
+				<label for="floatingPassword">Ваша электропочта</label>
+			  </div>
+
+
+			  <div class="form-floating mb-3">
+				{{form.city}}
+			  </div>
+			
+
+			  <div class="form-floating mb-3">
+				{{form.role}}
+			  </div>
+
+			  <div class="form-floating mb-3">
+				{{form.password1}}
+				<label for="floatingPassword">Придумайте пароль</label>
+			  </div>
+
+			  <div class="form-floating mb-3">
+				{{form.password2}}
+				<label for="floatingPassword">Подтвердите пароль</label>
+			  </div>
+			
+
+			<button type="submit" class="register_btn">Регистрация</button>  
+			<a href="{%url 'login'%}" class="login_btn">Войти</a>
+			
+		</form>
+	</div>
+
+</div>
+
+
+{%endblock%}

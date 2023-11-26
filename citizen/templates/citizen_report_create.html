@@ -1,0 +1,41 @@
+{%extends 'main/base.html' %}
+{%block content%}
+<div class="common_news_title">
+	Создать обращение
+</div>
+<div class="container">
+	
+<form action="" method="POST" class="supercontainer" style="margin-bottom: 40px;">
+	{%csrf_token%}
+	<div class="report-title">Выберите тему:</div>
+
+	<div class="form-floating mb-3">
+		{{form.type_of_problem}}
+		<label for="floatingInput" style="text-align: center;">Проблема</label>
+	  </div>
+	
+
+	  <div class="form-floating mb-3">
+		{{form.title}}
+		<label for="floatingInput" style="text-align: center;">Вопрос</label>
+	  </div>
+	
+	  <div class="form-floating mb-3">
+		{{form.description}}
+		<label for="floatingInput" style="text-align: center;"></label>
+	  </div>
+
+	  <div class="form-check">
+		<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+		<label class="form-check-label" for="flexCheckDefault">
+			Согласие на обработку персональных данных
+		</label>
+	  </div>
+	<div class="citizen_report_btn_group">
+		<a href="mailto:vlad@htmlbook.ru?subject=Вопрос по HTML" class="citizen_report_btn add_file">Прикрепить файл</a>
+		<button type="submit" class="citizen_report_btn">отправить</button>
+	</div>
+	
+</form>
+</div>
+{%endblock%}

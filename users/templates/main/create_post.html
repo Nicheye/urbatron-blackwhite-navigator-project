@@ -1,0 +1,73 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+
+<div class="common_news_title">
+	Публикация
+</div>
+<div class="profile_container">
+	<div class="profile-group-btn" style="margin-top: 20px;">
+		<a href="{%url 'profile' request.user.id %}"><button class="profile_btn ">Общее</button></a>
+		<button class="profile_btn">Привязка устройств</button>
+		<button class="profile_btn">Награды</button>
+		{%if role == 'Municipal' %}
+		<a href=""><button class="profile_btn selected">Публикация</button></a>
+		<a href="{%url 'check_reports' %}"><button class="profile_btn">Обращения</button></a>
+		<a href="{%url 'events' %}"><button class="profile_btn">Cобытия</button></a> 
+		{%endif%}
+	</div>
+
+	<form action="" method="post" class="post_create_form" enctype="multipart/form-data">
+		{%csrf_token%}
+		<div class="main_post_form">
+			<div class="left_post_form">
+				
+			<label for="images" class="drop-container" id="dropcontainer">
+				<span class="drop-title">Перетащите файлы</span>
+				или
+				<input type="file" accept="image/*" name="post_photo" class="post_form_image_picker"> 
+			</label>
+			
+			<input type="file" id="actual-btn" hidden/>
+			</div>
+			<div class="rigt_post_form">
+
+				<div class="form-floating mb-3">
+					<input type="text" name="place" class="form-control" id="floatingInput" placeholder="Улица Иванова 5а , Москва">
+					<label for="floatingInput">Место проведения</label>
+				  </div>
+				
+				  
+				  <div class="form-floating mb-3">
+					<input type="text" name="title" class="form-control" id="floatingInput" placeholder="Cуботник">
+					<label for="floatingInput">Название</label>
+				  </div>
+
+				  <div class="form-floating mb-3">
+					<input type="text"  name="date" class="form-control" id="floatingInput" placeholder="01.01.2001">
+					<label for="floatingInput">Дата</label>
+				  </div>
+
+				  <div class="form-floating mb-3">
+					<input type="time"  name="time" class="form-control" id="floatingInput" placeholder="13:22">
+					<label for="floatingInput">Время</label>
+				  </div>
+
+				  <div class="form-floating mb-3">
+					<input type="text"  name="url" class="form-control" id="floatingInput" placeholder="https://google.com">
+					<label for="floatingInput">ссылка на регистрацию</label>
+				  </div>
+			</div>
+		</div>
+		<div class="decr_post_form">
+			<div class="form-floating">
+				<textarea class="form-control" placeholder="*ввести текст описания*" id="floatingTextarea2" name="content" style="height: 300px"></textarea>
+				<label for="floatingTextarea2">Описание</label>
+			  </div>
+		</div>
+		<button type="submit" class="citizen_report_btn" style="margin: 0 auto;
+		margin-top: 30px;margin-bottom: 30px;">отправить</button>
+	</form>
+</div>
+
+{%endblock%}

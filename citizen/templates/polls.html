@@ -1,0 +1,30 @@
+{%extends 'main/base.html' %}
+{%block content%}
+<div class="common_news_title">
+	Голосование
+</div>
+<div class="container">
+	<div class="profile-group-btn polls_group_btn">
+		<button class="profile_btn selected">Активные</button>
+		<button class="profile_btn">Завершенные</button>
+		
+	</div>
+	<div class="poll-wrapper">
+	{%for poll in polls%}
+	<a href="{%url 'poll_detail' poll.id%}">
+		<div class="pollcard" style="max-width: 290px;">
+			<img src="{{poll.image.url}}" class="poll_image" alt="">
+			<div class="poll_card_bottom">
+				<img class="poll-logo" src="{{poll.logo.url}}"></img>
+				<div class="poll_title" style="max-width: 100%;">{{poll.title}}</div>
+			</div>
+		</div>
+	</a>
+	
+	
+	
+	
+	{%endfor%}
+</div>
+</div>
+{%endblock%}

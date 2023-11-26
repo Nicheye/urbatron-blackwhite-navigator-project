@@ -1,0 +1,55 @@
+{%extends 'main/base.html' %}
+{%block content%}
+
+<div class="container">
+	<div class="common_news_title">
+		Опрос: {{poll.detail}}
+	</div>
+
+	<div class="poll-q-link">Вопрос</div>
+	{%if voted == True %}
+	<form action="" method="post" class="poll_form">
+		<div class="poll_q_title">{{poll.title}}</div>
+		<div class="poll_rule_p">Вы можете выбрать один вариант  ответа</div>
+		<div class="poll_vote_info">Проголосовали <span>{{votes}}</span> человек</div>
+			{%csrf_token%}
+			
+			
+				{%for option in options%}
+				<div class="form-check form-check-inline poll_choice">
+					<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="{{option.title}}" disabled>
+					<label class="form-check-label poll_option" for="inlineRadio1">{{option.title}} ({{option.count}})</label>
+				  </div>
+				  <br>
+				 
+			{%endfor%}
+			
+			
+			<div class="voted_title">Вы уже голосовали</div>
+			<a class="home-link" href="{%url 'home' %}">домой</a>
+	</form>
+	{%else%}
+	<form action="" method="post" class="poll_form">
+		<div class="poll_q_title">{{poll.title}}</div>
+		<div class="poll_rule_p">Вы можете выбрать один вариант  ответа</div>
+		<div class="poll_vote_info">Проголосовали <span>{{votes}}</span> человек</div>
+			{%csrf_token%}
+			
+			
+				{%for option in options%}
+				<div class="form-check form-check-inline poll_choice">
+					<input class="form-check-input" type="radio" name="poll" id="inlineRadio1" value="{{option.id}}">
+					<label class="form-check-label poll_option" for="inlineRadio1">{{option.title}} ({{option.count}})</label>
+				  </div>
+				  <br>
+				 
+			{%endfor%}
+			
+			
+			<button type="submit" class="poll_btn">проголосовать</button>
+	</form>
+	{%endif%}
+
+	
+</div>
+{%endblock%}

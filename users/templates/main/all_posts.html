@@ -1,0 +1,27 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	Посты
+</div>
+<div class="container report_base_container" style="margin-top: 30px;">
+	
+	{%for report in posts%}
+	<div class="report_base_card" >
+		<div class="report_base_text" style="gap:10px">
+		<div class="report_base_type" style="color: rgb(138, 243, 0); margin-bottom: 5px;">{{report.author.first_name}} {{report.author.second_name}}</div> 
+		<div class="report_base_tit">{{report.title}}</div>
+		
+		<div class="report_base_tit">{{report.content}}</div>
+		</div>
+		<a href="{%url 'citizen_report_detail' report.id%}"><button class="report_base_btn" >Перейти</button></a>
+		
+	</div>
+	
+	<br>
+	{%endfor%}
+	 
+	
+
+</div>
+{%endblock%}

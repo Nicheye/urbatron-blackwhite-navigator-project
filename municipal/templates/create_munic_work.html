@@ -1,0 +1,36 @@
+{%extends 'main/base.html' %}
+{%block content%}
+<div class="common_news_title">
+	Посты для Муниципалитета
+</div>
+<form action="" method="post" class="supercontainer" enctype="multipart/form-data">
+	 {%csrf_token%}
+	 <div class="form-floating">
+		{{form.type}}
+		<label for="floatingSelect">Выберите тип работ</label>
+	  </div>
+
+	  <div class="form-floating mb-3">
+		{{form.title}}
+		<label for="floatingInput">Введите название</label>
+	  </div>
+
+	  <div class="form-floating mb-3">
+		{{form.description}}
+		<label for="floatingInput">Введите описание</label>
+	  </div>
+
+	  <div class="form-floating mb-3">
+		{{form.dead_line_date}}
+		<label for="floatingInput">Введите конечный срок</label>
+	  </div>
+
+	  <div class="form-floating mb-4">
+		{{form.opt_image}}
+		<label for="floatingInput">картинка(график)</label>
+	  </div>
+	<!-- {{form}} -->
+	<button type="submit" class="profile_change_btn" style="margin-bottom: 20px;">Отправить</button>
+</form>
+
+{%endblock%}

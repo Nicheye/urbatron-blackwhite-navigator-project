@@ -1,0 +1,56 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+{%load static%}
+<div class="common_news_title">
+	Муниципальные услуги
+</div>
+<div class="container" style="    max-width: 1160px;
+">
+<div class="municip">
+	<div class="municip_title" style="margin-top: 15px;">Официальная Москва:</div>
+	<div class="municip_wrapper">
+		<a href="https://www.mos.ru/"><img src="{%static 'images/image/msk.png'%}" alt="" class="municip_img"></a>
+		<a href="{%url 'home' %}"><img src="{%static 'images/image/news.png'%}" alt="" class="municip_img"></a>
+		<a href="https://duma.mos.ru/ru/"><img src="{%static 'images/image/dep.png'%}" alt="" class="municip_img"></a>
+		<a href="https://www.mos.ru/"><img src="{%static 'images/image/admin.png'%}" alt="" class="municip_img"></a>
+		
+	</div>
+</div>
+
+<div class="municip">
+	<div class="municip_title">Городское хозяйство:</div>
+	<div class="municip_wrapper">
+		<a href="https://www.mos.ru/"><img src="{%static 'images/image/cityc.png'%}" alt="" class="municip_img"></a>
+		<a href="https://www.mos.ru/dgkh/"><img src="{%static 'images/image/zhkh.png'%}" alt="" class="municip_img"></a>
+		<a href="https://stroi.mos.ru/news?rubric=Транспорт"><img src="{%static 'images/image/transport.png'%}" alt="" class="municip_img"></a>
+		<a href="https://stroi.mos.ru/"><img src="{%static 'images/image/architect.png'%}" alt="" class="municip_img"></a>
+		
+	</div>
+</div>
+
+
+<div class="municip">
+	<div class="municip_title">Гражданское общество:</div>
+	<div class="municip_wrapper">
+		<a href="https://kudago.com/msk/events/"><img src="{%static 'images/image/events.png'%}" alt="" class="municip_img"></a>
+		<a href="http://pravo.gov.ru/links/moskva/"><img src="{%static 'images/image/portal.png'%}" alt="" class="municip_img"></a>
+		<a href="https://www.mos.ru/drbez/"><img src="{%static 'images/image/relations.png'%}" alt="" class="municip_img"></a>
+		<a href="{%url 'home'%}"><img src="{%static 'images/image/secure.png'%}" alt="" class="municip_img"></a>
+		
+	</div>
+</div>
+
+<div class="municip">
+	<div class="municip_title">Обратная Связь:</div>
+	<div class="municip_wrapper">
+		<a href="{%url 'login'%}"><img src="{%static 'images/image/lk.png'%}" alt="" class="municip_img"></a>
+		<a href="https://gorod.mos.ru/"><img src="{%static 'images/image/mymsk.png'%}" alt="" class="municip_img"></a>
+		<a href="{%url 'home'%}"><img src="{%static 'images/image/email.png'%}" alt="" class="municip_img"></a>
+		<a href="{%url 'home'%}"><img src="{%static 'images/image/votes.png'%}" alt="" class="municip_img"></a>
+		
+	</div>
+</div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,113 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+{%load static%}
+<div class="container ">
+	
+	<br>
+
+
+	
+	{%if role == 'Municipal' and request.user.is_proved == True %}
+	{% if report.comment == ""%}
+	<div class="supercontainer">
+		
+		<div class="report-title">Проблема:</div>
+	
+		<div class="form-floating mb-3">
+			<select class="form-select" aria-label="Default select example" disabled>
+				<option selected>{{report.type_of_problem}}</option>
+			  </select>
+			
+			<label for="floatingInput" style="text-align: center;">Проблема</label>
+		  </div>
+		
+	
+		  <div class="form-floating mb-3">
+			<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="{{report.title}}">
+			
+			<label for="floatingInput" style="text-align: center;">Вопрос</label>
+		  </div>
+		  <div class="form-floating mb-3">
+			<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="{{report.description}}">
+			
+			<label for="floatingInput" style="text-align: center;">Описание</label>
+		  </div>
+		
+		  <div class="form-floating mb-3">
+			{{form.description}}
+			<label for="floatingInput" style="text-align: center;"></label>
+		  </div>
+		 
+		
+		<form action="" method="post">
+			{%csrf_token%}
+			<div class="mb-3">
+				<label for="exampleFormControlTextarea1" class="form-label">Ответ Муниципалитета</label>
+				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
+			</div>
+			<button type="submit" class="poll_btn" style="width: 100%; margin-top: 20px;">отправить</button>
+		</form>
+	</div>
+	{%endif%}
+	{%endif%}
+
+
+	{%if role == 'citizen' %}
+	<div class="form-floating mb-3">
+		<select class="form-select" aria-label="Default select example" disabled>
+			<option selected>{{report.type_of_problem}}</option>
+		  </select>
+		
+		<label for="floatingInput" style="text-align: center;">Проблема</label>
+	  </div>
+	
+
+	  <div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="{{report.title}}">
+		
+		<label for="floatingInput" style="text-align: center;">Вопрос</label>
+	  </div>
+	  <div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="{{report.description}}">
+		
+		<label for="floatingInput" style="text-align: center;">Описание</label>
+	  </div>
+	
+
+	  {% if report.comment != '' %}
+	  <div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="{{report.comment}}">
+		<label for="floatingInput" style="text-align: center;">Ответ муниципальных служб</label>
+	  </div>
+	  {%if role == 'citizen' and report.react is None %}
+	<form action="{%url 'create_react' report.id%}" method="post" class="react_form">
+		{%csrf_token%}
+
+		 <button value="good" name="react" class="emotion_btn" ><img src="{%static 'images/emoji/good.png'%}" class="good_emozhi" alt="">хорошо</button>
+		 <button value="bad" name="react"  class="emotion_btn"><img src="{%static 'images/emoji/bad.png'%}" class="good_emozhi" alt="">плохо</button>
+		
+	</form>
+	{%elif role == 'citizen' and report.react is not None %}
+	<br>
+	{% if report.react == 'good' %}
+	<button value="good" name="react" class="emotion_btn" style="display: flex; flex-direction: column; text-align: center; justify-content: center; margin: 0 auto;" ><img src="{%static 'images/emoji/good.png'%}" class="good_emozhi" alt="">хорошо</button>
+	{%else%}
+	<button value="bad" name="react"  class="emotion_btn" style="display: flex;justify-content: center; text-align: center; margin: 0 auto;"><img src="{%static 'images/emoji/bad.png'%}" class="good_emozhi" alt="">плохо</button>
+	{%endif%}
+	
+	{%endif%}
+	  {%else%}
+	  <div class="form-floating mb-3">
+		<input type="text" class="form-control" id="floatingInput"  disabled placeholder="name@example.com" value="Ждите ответа от муниципальных служб">
+		<label for="floatingInput" style="text-align: center;">Ответ муниципальных служб</label>
+	  </div>
+	  
+		{%endif%}
+	  
+	{%endif%}
+	
+
+</div>
+
+{%endblock%}

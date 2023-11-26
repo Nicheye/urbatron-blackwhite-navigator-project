@@ -1,0 +1,16 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	карты Москвы
+</div>
+<div class="map_title">Интерактивные карты</div>
+<div class="supercontainer">
+<a href="{%url 'musorki'%}" class="map_link">Вывоз ТКО</a>
+<br>
+<a href="{%url 'eco'%}" class="map_link">Экотуристические объекты </a>
+<br>
+<a href="{%url 'roads'%}" class="map_link">Карта перекрытия и ремонтов дорог</a>
+<br>
+</div>
+{%endblock%}

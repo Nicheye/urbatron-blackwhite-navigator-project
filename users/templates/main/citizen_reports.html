@@ -1,0 +1,37 @@
+{%extends 'main/base.html' %}
+{%block content%}
+<div class="common_news_title">
+	Обращения
+</div>
+<div class="profile-group-btn" style="margin-top: 20px;margin-bottom: 20px;">
+	<a href="{%url 'profile' request.user.id %}"><button class="profile_btn ">Общее</button></a>
+	<a href="{%url 'citizen_polls'%}"><button class="profile_btn">голосование</button></a>
+	<a href="{%url 'awards'%}"><button class="profile_btn">Награды</button></a>
+	{%if role == 'Municipal'%}
+	<a href="{%url 'create_common_post'%}"><button class="profile_btn">Публикация</button></a>
+	<a href="{%url 'check_reports' %}"><button class="profile_btn">Обращения</button></a>
+	<a href="{%url 'events' %}"><button class="profile_btn">Cобытия</button></a> 
+	{%elif role == 'citizen' %}
+	<a href="{%url 'citizen_reports' %}"><button class="profile_btn selected">Обращения</button></a>
+	{%endif%}
+</div>
+<div class="container report_base_container">
+	
+	{%for report in reports%}
+	
+	<div class="report_base_card">
+		<div class="report_base_text">
+		<div class="report_base_type">{{report.type_of_problem}}</div> 
+		<div class="report_base_tit">{{report.title}}</div>
+		</div>
+		<a href="{%url 'citizen_report_detail' report.id%}" class="report_base_btn" ><button class="report_base_btn">Перейти</button></a>
+		
+	</div>
+	
+	<br>
+	{%endfor%}
+	 
+	<a href="{%url 'create_citizen_report' %}"><button class="profile_change_btn" style="margin-bottom: 40px;" type="submit">добавить</button></a>
+
+</div>
+{%endblock%}

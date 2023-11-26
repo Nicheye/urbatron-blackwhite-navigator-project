@@ -1,0 +1,9 @@
+@media (max-width:500px) {
+	.search_mega-box{
+		display: none;
+	
+	}
+	.log-nav .d-flex{
+		display: block;
+	}
+}

@@ -1,0 +1,176 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%load static%}
+{%block content%}
+<div class="common_news_title">
+	События
+</div>
+<div class="profile-group-btn" style="margin-top: 20px;margin-bottom: 20px;">
+	<a href="{%url 'profile' request.user.id %}"><button class="profile_btn ">Общее</button></a>
+	<a href="{%url 'citizen_polls'%}"><button class="profile_btn">голосование</button></a>
+	<a href="{%url 'awards'%}"><button class="profile_btn selected">Награды</button></a>
+	{%if role == 'Municipal'%}
+	<a href="{%url 'create_common_post'%}"><button class="profile_btn">Публикация</button></a>
+	<a href="{%url 'check_reports' %}"><button class="profile_btn">Обращения</button></a>
+	<a href="{%url 'events' %}"><button class="profile_btn">Cобытия</button></a> 
+	{%elif role == 'citizen' %}
+	<a href="{%url 'citizen_reports' %}"><button class="profile_btn ">Обращения</button></a>
+	{%endif%}
+</div>
+<div class="awards-container">
+
+	<div class="award_profile">
+		<div class="award_ava">
+			<img src="{{request.user.profile.avatar.url}}" class="award_ava" alt="">
+		</div>
+		<div class="award_right">
+			<div class="award_name">{{request.user.first_name}} {{request.user.second_name}}</div>
+			<div class="award_status">Статус: <span>{%if role == 'citizen' and request.user.is_superuser == False %}
+				Городской Житель
+				{%elif role == 'Municipal'%}
+				Муницапальный работник
+				{%elif request.user.is_superuser == True%}
+				Админ
+				{%endif%}
+			</span></div>
+			<div class="award_info_wrapper">
+				<div class="award_info_item">
+					<div class="award_count">{{request.user.profile.elo}}</div>
+					<div class="award_descr">Баллов</div>
+				</div>
+				<div class="award_info_item">
+					<div class="award_count">{{request.user.profile.reports}}</div>
+					<div class="award_descr">Обращений</div>
+				</div>
+
+				<div class="award_info_item">
+					<div class="award_count">{{request.user.profile.votes}}</div>
+					<div class="award_descr">Анкетирование</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="award_group_btn">
+		<div class="award_btn selected">Достижения</div>
+		<div class="award_btn ">Ввести промокод</div>
+		<div class="award_btn">Магазин баллов</div>
+	</div>
+	<div class="award_awards">
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/ilrmp.png' %}" alt=""></div>
+				<div class="award_left_counter done">1/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Я люблю RUS.MUN.PORT!</div>
+				<div class="award_card_descr">Зарегистрироваться на портале rus.mun.port</div>
+			</div>
+
+			
+		</div>
+		{%if request.user.profile.reports >= 1 and  request.user.profile.reports <= 10 %}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/docs.png' %}" alt=""></div>
+				<div class="award_left_counter done">1/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Мне не все равно!</div>
+				<div class="award_card_descr">Написать первое обращение  на портале rus.mun.port</div>
+			</div>
+		</div>
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/docs.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.reports}}/10</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Активный гражданин!</div>
+				<div class="award_card_descr">Написать десять обращение  на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%elif request.user.profile.reports == 0%}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/docs.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.reports}}/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Мне не все равно!</div>
+				<div class="award_card_descr">Написать первое обращение  на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%endif%}
+
+		{%if request.user.profile.votes >= 1 and  request.user.profile.votes <= 10 %}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/vote.png' %}" alt=""></div>
+				<div class="award_left_counter done">1/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Мой голос имеет значение!</div>
+				<div class="award_card_descr">Поучавствовать в первом голосовании  на портале rus.mun.port</div>
+			</div>
+		</div>
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/vote.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.votes}}/10</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Активный избиратель!</div>
+				<div class="award_card_descr">Поучавствовать в десяти голосованиях на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%elif request.user.profile.votes == 0%}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/vote.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.votes}}/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Мой голос имеет значение!</div>
+				<div class="award_card_descr">Поучавствовать в первом голосовании  на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%endif%}
+
+
+		{%if request.user.profile.comments >= 1 and  request.user.profile.comments <= 10 %}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/comment.png' %}" alt=""></div>
+				<div class="award_left_counter done">1/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">У меня свое мнение!</div>
+				<div class="award_card_descr">Написать первый комментарий  на портале rus.mun.port</div>
+			</div>
+		</div>
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/comment.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.comments}}/10</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Активный комментатор!</div>
+				<div class="award_card_descr">Написать десять комментариев на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%elif request.user.profile.comments == 0%}
+		<div class="award_card">
+			<div class="award_card_left">
+				<div class="award_logo"><img src="{%static 'images/emoji/comment.png' %}" alt=""></div>
+				<div class="award_left_counter">{{request.user.profile.comments}}/1</div>
+			</div>
+			<div class="award_card_right">
+				<div class="award_card_title">Мой голос имеет значение!</div>
+				<div class="award_card_descr">Поучавствовать в первом голосовании  на портале rus.mun.port</div>
+			</div>
+		</div>
+		{%endif%}
+
+	</div>
+</div>
+{%endblock%}

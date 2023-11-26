@@ -1,0 +1,62 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	Наша Новость
+</div>
+<div class="supercontainer" style="max-width: 920px;">
+	<div class="new_title">{{post.title}}</div>
+	<div class="new-wrapper">
+	<div class="common_new_detail_left">
+		<img src="{{post.image.url}}" class="new_post_image" alt="">
+	</div>
+	<div class="common_new_detail_right">
+		<div class="common-new-link">От кого : {{post.author}}</div>
+		<div class="common-new-link">Место проведения : {{post.place}}</div>
+		<div class="common-new-link">Дата: {{post.date}}</div>
+		<div class="common-new-link">Время : {{post.time}}</div>
+		<a href="{{post.link}}"><div class="register_common_btn">Зарегистрироваться</div></a>
+	</div>
+
+</div>
+
+	<div class="text">
+		{{post.content}}
+	</div>
+
+	
+	<div class="comments" style="margin-top: 40px;">
+		{%for comment in comments%}
+		<div class="comment-card">
+			<div class="form-floating mb-3">
+				<div class="comment_fields">{{comment.comment}}</div>
+  				
+			  </div>
+			  <div class="comment-author">{{comment.author.first_name}} {{comment.author.second_name}}</div>
+		</div>
+		{%endfor%}
+		{%if request.user.is_authenticated%}
+		<form action="{%url 'comment' post.id%}" method="POST">
+			{%csrf_token%}
+			<div class="form-floating mb-3">
+				<textarea class="form-control" name="comment" placeholder="Оставьте свой комментарий" id="floatingTextarea2" style="height: 160px"></textarea>
+  				<label for="floatingTextarea2">Комментарий</label>
+			  </div>
+			  <button type="submit" class="comment_send_btn">Отправить</button>
+		</form>
+		{%else%}
+		<form action="{%url 'comment' post.id%}" method="POST">
+			{%csrf_token%}
+			<div class="form-floating mb-3">
+				<textarea class="form-control" name="comment" disabled placeholder="Оставьте свой комментарий" id="floatingTextarea2" style="height: 130px"></textarea>
+  				<label for="floatingTextarea2">Комментарий</label>
+			  </div>
+
+			  <a class="home-link" href="{%url 'login' %}">Войдите,чтобы комментировать</a>
+		</form>
+		{%endif%}
+	</div>
+</div>
+
+
+{%endblock%}

@@ -1,0 +1,78 @@
+{%extends 'main/base.html' %}
+{%block title%}Home bar{%endblock%}
+{%block content%}
+<div class="common_news_title">
+	Главная страница
+</div>
+<div class="container ">
+	
+	<div class="bd_news_container" >
+		
+		<div class="bd_news_left" >
+			<a href="{%url 'post_detail' first_post.id %}">
+				<div class="first_post_db" >
+					<img src="{{first_post.image.url}}" alt="">
+				</div>
+			</a>
+		</div>
+		<div class="bd_news_right">
+			<div class="top">
+				<a href="{%url 'post_detail' second_post.id %}">
+				<div class="second_post_db">
+					<img src="{{second_post.image.url}}" alt="">
+				</div>
+			</a>
+			</div>
+			<div class="bottom">
+				<a href="{%url 'post_detail' third_post.id %}">
+				<div class="third_post_db">
+					
+					<img src="{{third_post.image.url}}" alt="">
+				</div>
+			</a>
+			<a href="{%url 'post_detail' fourth_post.id %}">
+				<div class="third_post_db">
+					<img src="{{fourth_post.image.url}}" alt="">
+				</div>
+			</div>
+		</a>
+		</div>
+
+	</div>
+
+	 <div class="recent-news">
+		<div class="recent-news_title">Последние новости</div>
+		<div class="recent-wrapper">
+			{%for new in recent_news%}
+			<div class="recent-new_card">
+				<div class="recent_top">
+					<a href="{{new.url}}" class="author_recent_link">перейти</a>
+					{{new.author}}
+					
+				</div>
+				<div class="recent_title">
+					{{new.title}}
+				</div>
+			</div>
+			{%endfor%}
+		</div>
+
+		<a href="{%url 'all_posts' %}" ><button class="all_posts_btn">Читать</button></a>
+	 </div>
+
+
+	{%if role  == 'Municipal' and request.user.is_proved == False%}
+	<h1>Ждите пока вашу оргу не одобрят</h1>
+	{%elif role  == 'Municipal' and request.user.is_proved == True%}
+	 
+	{%elif role == 'citizen' %}
+	
+	<br>
+	
+	
+	{%else%}
+	<!-- pidoras {{request.user.role }} {{request.user.is_proved}} -->
+	 {%endif%}
+
+</div>
+{%endblock%}
