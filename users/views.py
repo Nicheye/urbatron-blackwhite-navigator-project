@@ -118,7 +118,7 @@ def profile(request,id):
 	return render(request,'main/profile.html',{"user":user,"role":role})
 @login_required
 def citizen_reports(request):
-	
+
 	reports = CitReport.objects.filter(created_by=request.user).all()
 	
 	role =str(request.user.role)
@@ -173,7 +173,7 @@ def musorki(request):
 def eco(request):
 	return render(request,'maps/eco.html',{})
 def roads(request):
-	return render(request,'maps/eco.html',{})
+	return render(request,'maps/roads.html',{})
 def maps(request):
 	from .models import City
 	city = City.objects.all()
